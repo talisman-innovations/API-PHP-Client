@@ -1,6 +1,7 @@
 <?php
 
 use ConnectorSupport\Curl\Logger;
+use Psr\Log\LoggerInterface;
 
 /**
  * The Webshopapp Api Client Class
