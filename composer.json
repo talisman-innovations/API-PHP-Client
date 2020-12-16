@@ -15,7 +15,8 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
+        "talisman/connectorsupport": "dev-master"
     },
     "autoload": {
         "files": ["src/WebshopappApiClient.php"]

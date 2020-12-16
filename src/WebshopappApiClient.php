@@ -1,5 +1,7 @@
 <?php
 
+use ConnectorSupport\Curl\Logger;
+
 /**
  * The Webshopapp Api Client Class
  */
@@ -463,6 +465,9 @@ class WebshopappApiClient
      */
     public $webhooks;
 
+    /** @var Logger */
+    protected $logger;
+
     /**
      * @param string $apiKey      The api key
      * @param string $apiSecret   The api secret
@@ -488,6 +493,14 @@ class WebshopappApiClient
         $this->setApiLanguage($apiLanguage);
 
         $this->registerResources();
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = new ConnectorSupport\Curl\Logger($logger);
     }
 
     /**
@@ -782,6 +795,7 @@ class WebshopappApiClient
 
         if ($method == 'post' || $method == 'put')
         {
+            $post = true;
             if (!$payload || !is_array($payload))
             {
                 throw new WebshopAppApiException(100, 'Invalid payload');
@@ -801,6 +815,7 @@ class WebshopappApiClient
         }
         elseif ($method == 'delete')
         {
+            $post = false;
             $curlOptions = array(
                 CURLOPT_URL           => $this->getUrl($url),
                 CURLOPT_CUSTOMREQUEST => 'DELETE',
@@ -808,13 +823,14 @@ class WebshopappApiClient
         }
         else
         {
+            $post = false;
             $curlOptions = array(
                 CURLOPT_URL => $this->getUrl($url, $payload),
             );
         }
 
         $curlOptions += array(
-            CURLOPT_HEADER         => false,
+            CURLOPT_HEADER         => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_USERAGENT      => 'WebshopappApiClient/' . self::CLIENT_VERSION . ' (PHP/' . phpversion() . ')',
@@ -843,8 +859,12 @@ class WebshopappApiClient
 
         $responseBody = curl_exec($curlHandle);
 
+        $header_size = curl_getinfo($curlHandle, CURLINFO_HEADER_SIZE);
+        $responseHeader = substr($responseBody, 0, $header_size);
+        $responseBody = substr($responseBody, $header_size);
+
         if ($headers) {
-            $this->setResponseHeaders($headers);
+            $this->setResponseHeaders($header);
         }
 
         if (curl_errno($curlHandle))
@@ -854,6 +874,10 @@ class WebshopappApiClient
 
         $responseBody = json_decode($responseBody, true);
         $responseCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
+
+        if ($this->logger) {
+            $this->logger->log($method, $url, $post ? null : $payload,  $headers, $post ? json_encode($payload) : null, $responseCode, $responseHeader, $responseBody);
+        }
 
         curl_close($curlHandle);
 
@@ -871,6 +895,8 @@ class WebshopappApiClient
 
         return $responseBody;
     }
+
+
 
     /**
      * @param int   $responseCode
@@ -4870,12 +4896,13 @@ class WebshopappApiResourceQuotesPaymentmethods
     }
 
     /**
+     * @param int $quoteId
      * @param array $params
      *
      * @return int
      * @throws WebshopappApiException
      */
-    public function count($params = array())
+    public function count($quoteId, $params = array())
     {
         return $this->client->read('quotes/' . $quoteId . '/paymentmethods/count', $params);
     }
