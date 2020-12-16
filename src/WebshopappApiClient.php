@@ -831,7 +831,7 @@ class WebshopappApiClient
         }
 
         $curlOptions += array(
-            CURLOPT_HEADER         => true,
+            CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_USERAGENT      => 'WebshopappApiClient/' . self::CLIENT_VERSION . ' (PHP/' . phpversion() . ')',
@@ -860,12 +860,8 @@ class WebshopappApiClient
 
         $responseBody = curl_exec($curlHandle);
 
-        $header_size = curl_getinfo($curlHandle, CURLINFO_HEADER_SIZE);
-        $responseHeader = substr($responseBody, 0, $header_size);
-        $responseBody = substr($responseBody, $header_size);
-
         if ($headers) {
-            $this->setResponseHeaders($header);
+            $this->setResponseHeaders($headers);
         }
 
         if (curl_errno($curlHandle))
@@ -877,7 +873,7 @@ class WebshopappApiClient
         $responseCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
 
         if ($this->logger) {
-            $this->logger->log($method, $url, $post ? null : $payload,  $headers, $post ? json_encode($payload) : null, $responseCode, $responseHeader, $responseBody);
+            $this->logger->log($method, $url, $post ? null : $payload,  [], $post ? json_encode($payload) : null, $responseCode, $headers, $responseBody);
         }
 
         curl_close($curlHandle);
