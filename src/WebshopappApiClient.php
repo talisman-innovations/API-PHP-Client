@@ -869,12 +869,13 @@ class WebshopappApiClient
             $this->handleCurlError($curlHandle);
         }
 
-        $responseBody = json_decode($responseBody, true);
         $responseCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
 
         if ($this->logger) {
             $this->logger->log($method, $url, $post ? null : $payload,  [], $post ? json_encode($payload) : null, $responseCode, $headers, $responseBody);
         }
+
+        $responseBody = json_decode($responseBody, true);
 
         curl_close($curlHandle);
 
