@@ -16,9 +16,9 @@ class WebshopappApiClient
      * The Api Hosts (do not change!)
      */
     const SERVER_HOST_LOCAL = 'https://api.webshopapp.dev/';
-    const SERVER_HOST_LIVE  = 'https://api.webshopapp.com/';
-    const SERVER_EU1_LIVE   = 'https://api.webshopapp.com/';
-    const SERVER_US1_LIVE   = 'https://api.shoplightspeed.com/';
+    const SERVER_HOST_LIVE = 'https://api.webshopapp.com/';
+    const SERVER_EU1_LIVE = 'https://api.webshopapp.com/';
+    const SERVER_US1_LIVE = 'https://api.shoplightspeed.com/';
 
     /**
      * @var string
@@ -470,21 +470,19 @@ class WebshopappApiClient
     protected $logger;
 
     /**
-     * @param string $apiKey      The api key
-     * @param string $apiSecret   The api secret
+     * @param string $apiKey The api key
+     * @param string $apiSecret The api secret
      * @param string $apiLanguage The language to use the api in
-     * @param string $apiServer   The api server to use test / live
+     * @param string $apiServer The api server to use test / live
      *
      * @throws WebshopappApiException
      */
     public function __construct($apiServer, $apiKey, $apiSecret, $apiLanguage)
     {
-        if (!function_exists('curl_init'))
-        {
+        if (!function_exists('curl_init')) {
             throw new WebshopAppApiException('WebshopappApiClient needs the CURL PHP extension.');
         }
-        if (!function_exists('json_decode'))
-        {
+        if (!function_exists('json_decode')) {
             throw new WebshopAppApiException('WebshopappApiClient needs the JSON PHP extension.');
         }
 
@@ -599,180 +597,164 @@ class WebshopappApiClient
      */
     private function checkLoginCredentials()
     {
-        if (strlen($this->getApiKey()) !== 32 || strlen($this->getApiSecret()) !== 32)
-        {
+        if (strlen($this->getApiKey()) !== 32 || strlen($this->getApiSecret()) !== 32) {
             throw new WebshopappApiException('Invalid login credentials.');
         }
-        if (strlen($this->getApiLanguage()) !== 2)
-        {
+        if (strlen($this->getApiLanguage()) !== 2) {
             throw new WebshopappApiException('Invalid API language.');
         }
     }
 
     private function registerResources()
     {
-        $this->account                   = new WebshopappApiResourceAccount($this);
-        $this->accountMetafields         = new WebshopappApiResourceAccountMetafields($this);
-        $this->accountPermissions        = new WebshopappApiResourceAccountPermissions($this);
-        $this->accountRatelimit          = new WebshopappApiResourceAccountRatelimit($this);
-        $this->additionalcosts           = new WebshopappApiResourceAdditionalcosts($this);
-        $this->attributes                = new WebshopappApiResourceAttributes($this);
-        $this->blogs                     = new WebshopappApiResourceBlogs($this);
-        $this->blogsArticles             = new WebshopappApiResourceBlogsArticles($this);
-        $this->blogsArticlesImage        = new WebshopappApiResourceBlogsArticlesImage($this);
-        $this->blogsArticlesTags         = new WebshopappApiResourceBlogsArticlesTags($this);
-        $this->blogsComments             = new WebshopappApiResourceBlogsComments($this);
-        $this->blogsTags                 = new WebshopappApiResourceBlogsTags($this);
-        $this->brands                    = new WebshopappApiResourceBrands($this);
-        $this->brandsImage               = new WebshopappApiResourceBrandsImage($this);
-        $this->catalog                   = new WebshopappApiResourceCatalog($this);
-        $this->categories                = new WebshopappApiResourceCategories($this);
-        $this->categoriesImage           = new WebshopappApiResourceCategoriesImage($this);
-        $this->categoriesProducts        = new WebshopappApiResourceCategoriesProducts($this);
-        $this->categoriesProductsBulk    = new WebshopappApiResourceCategoriesProductsBulk($this);
-        $this->checkouts                 = new WebshopappApiResourceCheckouts($this);
-        $this->checkoutsOrder            = new WebshopappApiResourceCheckoutsOrder($this);
-        $this->checkoutsPayment_methods  = new WebshopappApiResourceCheckoutsPayment_methods($this);
-        $this->checkoutsProducts         = new WebshopappApiResourceCheckoutsProducts($this);
+        $this->account = new WebshopappApiResourceAccount($this);
+        $this->accountMetafields = new WebshopappApiResourceAccountMetafields($this);
+        $this->accountPermissions = new WebshopappApiResourceAccountPermissions($this);
+        $this->accountRatelimit = new WebshopappApiResourceAccountRatelimit($this);
+        $this->additionalcosts = new WebshopappApiResourceAdditionalcosts($this);
+        $this->attributes = new WebshopappApiResourceAttributes($this);
+        $this->blogs = new WebshopappApiResourceBlogs($this);
+        $this->blogsArticles = new WebshopappApiResourceBlogsArticles($this);
+        $this->blogsArticlesImage = new WebshopappApiResourceBlogsArticlesImage($this);
+        $this->blogsArticlesTags = new WebshopappApiResourceBlogsArticlesTags($this);
+        $this->blogsComments = new WebshopappApiResourceBlogsComments($this);
+        $this->blogsTags = new WebshopappApiResourceBlogsTags($this);
+        $this->brands = new WebshopappApiResourceBrands($this);
+        $this->brandsImage = new WebshopappApiResourceBrandsImage($this);
+        $this->catalog = new WebshopappApiResourceCatalog($this);
+        $this->categories = new WebshopappApiResourceCategories($this);
+        $this->categoriesImage = new WebshopappApiResourceCategoriesImage($this);
+        $this->categoriesProducts = new WebshopappApiResourceCategoriesProducts($this);
+        $this->categoriesProductsBulk = new WebshopappApiResourceCategoriesProductsBulk($this);
+        $this->checkouts = new WebshopappApiResourceCheckouts($this);
+        $this->checkoutsOrder = new WebshopappApiResourceCheckoutsOrder($this);
+        $this->checkoutsPayment_methods = new WebshopappApiResourceCheckoutsPayment_methods($this);
+        $this->checkoutsProducts = new WebshopappApiResourceCheckoutsProducts($this);
         $this->checkoutsShipment_methods = new WebshopappApiResourceCheckoutsShipment_methods($this);
-        $this->checkoutsValidate         = new WebshopappApiResourceCheckoutsValidate($this);
-        $this->contacts                  = new WebshopappApiResourceContacts($this);
-        $this->countries                 = new WebshopappApiResourceCountries($this);
-        $this->customers                 = new WebshopappApiResourceCustomers($this);
-        $this->customersLogin            = new WebshopappApiResourceCustomersLogin($this);
-        $this->customersMetafields       = new WebshopappApiResourceCustomersMetafields($this);
-        $this->customersTokens           = new WebshopappApiResourceCustomersTokens($this);
-        $this->dashboard                 = new WebshopappApiResourceDashboard($this);
-        $this->deliverydates             = new WebshopappApiResourceDeliverydates($this);
-        $this->discountrules             = new WebshopappApiResourceDiscountrules($this);
-        $this->discounts                 = new WebshopappApiResourceDiscounts($this);
-        $this->events                    = new WebshopappApiResourceEvents($this);
-        $this->external_services         = new WebshopappApiResourceExternal_services($this);
-        $this->files                     = new WebshopappApiResourceFiles($this);
-        $this->filters                   = new WebshopappApiResourceFilters($this);
-        $this->filtersValues             = new WebshopappApiResourceFiltersValues($this);
-        $this->groups                    = new WebshopappApiResourceGroups($this);
-        $this->groupsCustomers           = new WebshopappApiResourceGroupsCustomers($this);
-        $this->invoices                  = new WebshopappApiResourceInvoices($this);
-        $this->invoicesItems             = new WebshopappApiResourceInvoicesItems($this);
-        $this->invoicesMetafields        = new WebshopappApiResourceInvoicesMetafields($this);
-        $this->languages                 = new WebshopappApiResourceLanguages($this);
-        $this->locations                 = new WebshopappApiResourceLocations($this);
-        $this->metafields                = new WebshopappApiResourceMetafields($this);
-        $this->orders                    = new WebshopappApiResourceOrders($this);
-        $this->ordersCredit              = new WebshopappApiResourceOrdersCredit($this);
-        $this->ordersMetafields          = new WebshopappApiResourceOrdersMetafields($this);
-        $this->ordersProducts            = new WebshopappApiResourceOrdersProducts($this);
-        $this->ordersCustomstatuses      = new WebshopappApiResourceOrdersCustomstatuses($this);
-        $this->ordersEvents              = new WebshopappApiResourceOrdersEvents($this);
-        $this->paymentmethods            = new WebshopappApiResourcePaymentmethods($this);
-        $this->products                  = new WebshopappApiResourceProducts($this);
-        $this->productsAttributes        = new WebshopappApiResourceProductsAttributes($this);
-        $this->productsFiltervalues      = new WebshopappApiResourceProductsFiltervalues($this);
-        $this->productsImages            = new WebshopappApiResourceProductsImages($this);
-        $this->productsMetafields        = new WebshopappApiResourceProductsMetafields($this);
-        $this->productsRelations         = new WebshopappApiResourceProductsRelations($this);
-        $this->quotes                    = new WebshopappApiResourceQuotes($this);
-        $this->quotesConvert             = new WebshopappApiResourceQuotesConvert($this);
-        $this->quotesPaymentmethods      = new WebshopappApiResourceQuotesPaymentmethods($this);
-        $this->quotesProducts            = new WebshopappApiResourceQuotesProducts($this);
-        $this->quotesShippingmethods     = new WebshopappApiResourceQuotesShippingmethods($this);
-        $this->redirects                 = new WebshopappApiResourceRedirects($this);
-        $this->returns                   = new WebshopappApiResourceReturns($this);
-        $this->reviews                   = new WebshopappApiResourceReviews($this);
-        $this->sets                      = new WebshopappApiResourceSets($this);
-        $this->shipments                 = new WebshopappApiResourceShipments($this);
-        $this->shipmentsMetafields       = new WebshopappApiResourceShipmentsMetafields($this);
-        $this->shipmentsProducts         = new WebshopappApiResourceShipmentsProducts($this);
-        $this->shippingmethods           = new WebshopappApiResourceShippingmethods($this);
-        $this->shippingmethodsCountries  = new WebshopappApiResourceShippingmethodsCountries($this);
-        $this->shippingmethodsValues     = new WebshopappApiResourceShippingmethodsValues($this);
-        $this->shop                      = new WebshopappApiResourceShop($this);
-        $this->shopCompany               = new WebshopappApiResourceShopCompany($this);
-        $this->shopJavascript            = new WebshopappApiResourceShopJavascript($this);
-        $this->shopLimits                = new WebshopappApiResourceShopLimits($this);
-        $this->shopMetafields            = new WebshopappApiResourceShopMetafields($this);
-        $this->shopScripts               = new WebshopappApiResourceShopScripts($this);
-        $this->shopSettings              = new WebshopappApiResourceShopSettings($this);
-        $this->shopTracking              = new WebshopappApiResourceShopTracking($this);
-        $this->shopWebsite               = new WebshopappApiResourceShopWebsite($this);
-        $this->subscriptions             = new WebshopappApiResourceSubscriptions($this);
-        $this->suppliers                 = new WebshopappApiResourceSuppliers($this);
-        $this->tags                      = new WebshopappApiResourceTags($this);
-        $this->tagsProducts              = new WebshopappApiResourceTagsProducts($this);
-        $this->taxes                     = new WebshopappApiResourceTaxes($this);
-        $this->taxesOverrides            = new WebshopappApiResourceTaxesOverrides($this);
-        $this->textpages                 = new WebshopappApiResourceTextpages($this);
-        $this->themeCategories           = new WebshopappApiResourceThemeCategories($this);
-        $this->themeProducts             = new WebshopappApiResourceThemeProducts($this);
-        $this->tickets                   = new WebshopappApiResourceTickets($this);
-        $this->ticketsMessages           = new WebshopappApiResourceTicketsMessages($this);
-        $this->time                      = new WebshopappApiResourceTime($this);
-        $this->types                     = new WebshopappApiResourceTypes($this);
-        $this->typesAttributes           = new WebshopappApiResourceTypesAttributes($this);
-        $this->variants                  = new WebshopappApiResourceVariants($this);
-        $this->variantsImage             = new WebshopappApiResourceVariantsImage($this);
-        $this->variantsMetafields        = new WebshopappApiResourceVariantsMetafields($this);
-        $this->variantsBulk              = new WebshopappApiResourceVariantsBulk($this);
-        $this->variantsMovements         = new WebshopappApiResourceVariantsMovements($this);
-        $this->webhooks                  = new WebshopappApiResourceWebhooks($this);
+        $this->checkoutsValidate = new WebshopappApiResourceCheckoutsValidate($this);
+        $this->contacts = new WebshopappApiResourceContacts($this);
+        $this->countries = new WebshopappApiResourceCountries($this);
+        $this->customers = new WebshopappApiResourceCustomers($this);
+        $this->customersLogin = new WebshopappApiResourceCustomersLogin($this);
+        $this->customersMetafields = new WebshopappApiResourceCustomersMetafields($this);
+        $this->customersTokens = new WebshopappApiResourceCustomersTokens($this);
+        $this->dashboard = new WebshopappApiResourceDashboard($this);
+        $this->deliverydates = new WebshopappApiResourceDeliverydates($this);
+        $this->discountrules = new WebshopappApiResourceDiscountrules($this);
+        $this->discounts = new WebshopappApiResourceDiscounts($this);
+        $this->events = new WebshopappApiResourceEvents($this);
+        $this->external_services = new WebshopappApiResourceExternal_services($this);
+        $this->files = new WebshopappApiResourceFiles($this);
+        $this->filters = new WebshopappApiResourceFilters($this);
+        $this->filtersValues = new WebshopappApiResourceFiltersValues($this);
+        $this->groups = new WebshopappApiResourceGroups($this);
+        $this->groupsCustomers = new WebshopappApiResourceGroupsCustomers($this);
+        $this->invoices = new WebshopappApiResourceInvoices($this);
+        $this->invoicesItems = new WebshopappApiResourceInvoicesItems($this);
+        $this->invoicesMetafields = new WebshopappApiResourceInvoicesMetafields($this);
+        $this->languages = new WebshopappApiResourceLanguages($this);
+        $this->locations = new WebshopappApiResourceLocations($this);
+        $this->metafields = new WebshopappApiResourceMetafields($this);
+        $this->orders = new WebshopappApiResourceOrders($this);
+        $this->ordersCredit = new WebshopappApiResourceOrdersCredit($this);
+        $this->ordersMetafields = new WebshopappApiResourceOrdersMetafields($this);
+        $this->ordersProducts = new WebshopappApiResourceOrdersProducts($this);
+        $this->ordersCustomstatuses = new WebshopappApiResourceOrdersCustomstatuses($this);
+        $this->ordersEvents = new WebshopappApiResourceOrdersEvents($this);
+        $this->paymentmethods = new WebshopappApiResourcePaymentmethods($this);
+        $this->products = new WebshopappApiResourceProducts($this);
+        $this->productsAttributes = new WebshopappApiResourceProductsAttributes($this);
+        $this->productsFiltervalues = new WebshopappApiResourceProductsFiltervalues($this);
+        $this->productsImages = new WebshopappApiResourceProductsImages($this);
+        $this->productsMetafields = new WebshopappApiResourceProductsMetafields($this);
+        $this->productsRelations = new WebshopappApiResourceProductsRelations($this);
+        $this->quotes = new WebshopappApiResourceQuotes($this);
+        $this->quotesConvert = new WebshopappApiResourceQuotesConvert($this);
+        $this->quotesPaymentmethods = new WebshopappApiResourceQuotesPaymentmethods($this);
+        $this->quotesProducts = new WebshopappApiResourceQuotesProducts($this);
+        $this->quotesShippingmethods = new WebshopappApiResourceQuotesShippingmethods($this);
+        $this->redirects = new WebshopappApiResourceRedirects($this);
+        $this->returns = new WebshopappApiResourceReturns($this);
+        $this->reviews = new WebshopappApiResourceReviews($this);
+        $this->sets = new WebshopappApiResourceSets($this);
+        $this->shipments = new WebshopappApiResourceShipments($this);
+        $this->shipmentsMetafields = new WebshopappApiResourceShipmentsMetafields($this);
+        $this->shipmentsProducts = new WebshopappApiResourceShipmentsProducts($this);
+        $this->shippingmethods = new WebshopappApiResourceShippingmethods($this);
+        $this->shippingmethodsCountries = new WebshopappApiResourceShippingmethodsCountries($this);
+        $this->shippingmethodsValues = new WebshopappApiResourceShippingmethodsValues($this);
+        $this->shop = new WebshopappApiResourceShop($this);
+        $this->shopCompany = new WebshopappApiResourceShopCompany($this);
+        $this->shopJavascript = new WebshopappApiResourceShopJavascript($this);
+        $this->shopLimits = new WebshopappApiResourceShopLimits($this);
+        $this->shopMetafields = new WebshopappApiResourceShopMetafields($this);
+        $this->shopScripts = new WebshopappApiResourceShopScripts($this);
+        $this->shopSettings = new WebshopappApiResourceShopSettings($this);
+        $this->shopTracking = new WebshopappApiResourceShopTracking($this);
+        $this->shopWebsite = new WebshopappApiResourceShopWebsite($this);
+        $this->subscriptions = new WebshopappApiResourceSubscriptions($this);
+        $this->suppliers = new WebshopappApiResourceSuppliers($this);
+        $this->tags = new WebshopappApiResourceTags($this);
+        $this->tagsProducts = new WebshopappApiResourceTagsProducts($this);
+        $this->taxes = new WebshopappApiResourceTaxes($this);
+        $this->taxesOverrides = new WebshopappApiResourceTaxesOverrides($this);
+        $this->textpages = new WebshopappApiResourceTextpages($this);
+        $this->themeCategories = new WebshopappApiResourceThemeCategories($this);
+        $this->themeProducts = new WebshopappApiResourceThemeProducts($this);
+        $this->tickets = new WebshopappApiResourceTickets($this);
+        $this->ticketsMessages = new WebshopappApiResourceTicketsMessages($this);
+        $this->time = new WebshopappApiResourceTime($this);
+        $this->types = new WebshopappApiResourceTypes($this);
+        $this->typesAttributes = new WebshopappApiResourceTypesAttributes($this);
+        $this->variants = new WebshopappApiResourceVariants($this);
+        $this->variantsImage = new WebshopappApiResourceVariantsImage($this);
+        $this->variantsMetafields = new WebshopappApiResourceVariantsMetafields($this);
+        $this->variantsBulk = new WebshopappApiResourceVariantsBulk($this);
+        $this->variantsMovements = new WebshopappApiResourceVariantsMovements($this);
+        $this->webhooks = new WebshopappApiResourceWebhooks($this);
     }
 
     /**
      * @param string $resourceUrl
-     * @param array  $params
+     * @param array $params
      *
      * @return string
      */
     private function getUrl($resourceUrl, $params = null)
     {
-        if ($this->apiServer == 'live')
-        {
+        if ($this->apiServer == 'live') {
             $apiHost = self::SERVER_HOST_LIVE;
-        }
-        elseif ($this->apiServer == 'local')
-        {
+        } elseif ($this->apiServer == 'local') {
             $apiHost = self::SERVER_HOST_LOCAL;
-        }
-        elseif ($this->apiServer == 'eu1')
-        {
+        } elseif ($this->apiServer == 'eu1') {
             $apiHost = self::SERVER_EU1_LIVE;
-        }
-        elseif ($this->apiServer == 'us1')
-        {
+        } elseif ($this->apiServer == 'us1') {
             $apiHost = self::SERVER_US1_LIVE;
         }
 
-        $apiHostParts     = parse_url($apiHost);
+        $apiHostParts = parse_url($apiHost);
         $resourceUrlParts = parse_url($resourceUrl);
 
         $apiUrl = $apiHostParts['scheme'] . '://' . $this->getApiKey() . ':' . $this->getApiSecret() . '@' . $apiHostParts['host'] . '/';
-        if (isset($apiHostParts['path']) && strlen(trim($apiHostParts['path'], '/')))
-        {
+        if (isset($apiHostParts['path']) && strlen(trim($apiHostParts['path'], '/'))) {
             $apiUrl .= trim($apiHostParts['path'], '/') . '/';
         }
         $apiUrl .= $this->getApiLanguage() . '/' . $resourceUrlParts['path'] . '.json';
 
-        if (isset($resourceUrlParts['query']))
-        {
+        if (isset($resourceUrlParts['query'])) {
             $apiUrl .= '?' . $resourceUrlParts['query'];
-        }
-        elseif ($params && is_array($params))
-        {
+        } elseif ($params && is_array($params)) {
             $queryParameters = array();
 
-            foreach ($params as $key => $value)
-            {
-                if (!is_array($value))
-                {
+            foreach ($params as $key => $value) {
+                if (!is_array($value)) {
                     $queryParameters[] = $key . '=' . urlencode($value);
                 }
             }
 
             $queryParameters = implode('&', $queryParameters);
 
-            if (!empty($queryParameters))
-            {
+            if (!empty($queryParameters)) {
                 $apiUrl .= '?' . $queryParameters;
             }
         }
@@ -783,9 +765,9 @@ class WebshopappApiClient
     /**
      * Invoke the Webshopapp API.
      *
-     * @param string $url     The resource url (required)
-     * @param string $method  The http method (default 'get')
-     * @param array  $payload The query/post data
+     * @param string $url The resource url (required)
+     * @param string $method The http method (default 'get')
+     * @param array $payload The query/post data
      *
      * @return mixed The decoded response object
      * @throws WebshopappApiException
@@ -794,11 +776,8 @@ class WebshopappApiClient
     {
         $this->checkLoginCredentials();
 
-        if ($method == 'post' || $method == 'put')
-        {
-            $post = true;
-            if (!$payload || !is_array($payload))
-            {
+        if ($method == 'post' || $method == 'put') {
+            if (!$payload || !is_array($payload)) {
                 throw new WebshopAppApiException(100, 'Invalid payload');
             }
 
@@ -807,35 +786,29 @@ class WebshopappApiClient
             $header = $multipart ? $options['header'] : 'application/json';
 
             $curlOptions = array(
-                CURLOPT_URL           => $this->getUrl($url),
+                CURLOPT_URL => $this->getUrl($url),
                 CURLOPT_CUSTOMREQUEST => strtoupper($method),
-                CURLOPT_HTTPHEADER    => array('Content-Type: ' . $header),
-                CURLOPT_POST          => true,
-                CURLOPT_POSTFIELDS    => $multipart ? $payload : json_encode($payload),
+                CURLOPT_HTTPHEADER => array('Content-Type: ' . $header),
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $multipart ? $payload : json_encode($payload),
             );
-        }
-        elseif ($method == 'delete')
-        {
-            $post = false;
+        } elseif ($method == 'delete') {
             $curlOptions = array(
-                CURLOPT_URL           => $this->getUrl($url),
+                CURLOPT_URL => $this->getUrl($url),
                 CURLOPT_CUSTOMREQUEST => 'DELETE',
             );
-        }
-        else
-        {
-            $post = false;
+        } else {
             $curlOptions = array(
                 CURLOPT_URL => $this->getUrl($url, $payload),
             );
         }
 
         $curlOptions += array(
-            CURLOPT_HEADER         => false,
+            CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_USERAGENT      => 'WebshopappApiClient/' . self::CLIENT_VERSION . ' (PHP/' . phpversion() . ')',
-            CURLOPT_SSLVERSION     => 6,
+            CURLOPT_USERAGENT => 'WebshopappApiClient/' . self::CLIENT_VERSION . ' (PHP/' . phpversion() . ')',
+            CURLOPT_SSLVERSION => 6,
         );
 
         $curlHandle = curl_init();
@@ -844,7 +817,7 @@ class WebshopappApiClient
 
         $headers = [];
 
-        curl_setopt($curlHandle, CURLOPT_HEADERFUNCTION, function($curl, $header) use (&$headers) {
+        curl_setopt($curlHandle, CURLOPT_HEADERFUNCTION, function ($curl, $header) use (&$headers) {
             $length = strlen($header);
             $header = explode(':', $header, 2);
 
@@ -852,7 +825,7 @@ class WebshopappApiClient
                 return $length;
             }
 
-            $header              = array_map('trim', $header);
+            $header = array_map('trim', $header);
             $headers[$header[0]] = $header[1];
 
             return $length;
@@ -864,30 +837,35 @@ class WebshopappApiClient
             $this->setResponseHeaders($headers);
         }
 
-        if (curl_errno($curlHandle))
-        {
+        if (curl_errno($curlHandle)) {
             $this->handleCurlError($curlHandle);
         }
 
         $responseCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
 
         if ($this->logger) {
-            $this->logger->log($method, $url, $post ? null : $payload,  [], $post ? json_encode($payload) : null, $responseCode, $headers, $responseBody);
+            switch ($method) {
+                case 'post':
+                case 'put':
+                    $this->logger->log(strtoupper($method), $this->getUrl($url), null, [], json_encode($payload), $responseCode, $headers, $responseBody);
+                    break;
+                default:
+                    $this->logger->log(strtoupper($method), $this->getUrl($url), $payload, [], null, $responseCode, $headers, $responseBody);
+                    break;
+            }
         }
 
         $responseBody = json_decode($responseBody, true);
 
         curl_close($curlHandle);
 
-        $this->apiCallsMade ++;
+        $this->apiCallsMade++;
 
-        if ($responseCode < 200 || $responseCode > 299 || ($responseBody && array_key_exists('error', $responseBody)))
-        {
+        if ($responseCode < 200 || $responseCode > 299 || ($responseBody && array_key_exists('error', $responseBody))) {
             $this->handleResponseError($responseCode, $responseBody);
         }
 
-        if ($responseBody && preg_match('/^checkout/i', $url) !== 1)
-        {
+        if ($responseBody && preg_match('/^checkout/i', $url) !== 1) {
             $responseBody = array_shift($responseBody);
         }
 
@@ -895,9 +873,8 @@ class WebshopappApiClient
     }
 
 
-
     /**
-     * @param int   $responseCode
+     * @param int $responseCode
      * @param array $responseBody
      *
      * @throws WebshopappApiException
@@ -906,8 +883,7 @@ class WebshopappApiClient
     {
         $errorMessage = 'Unknown error: ' . $responseCode;
 
-        if ($responseBody && array_key_exists('error', $responseBody))
-        {
+        if ($responseBody && array_key_exists('error', $responseBody)) {
             $errorMessage = $responseBody['error']['message'];
         }
 
@@ -928,8 +904,8 @@ class WebshopappApiClient
 
     /**
      * @param string $url
-     * @param array  $payload
-     * @param array  $options
+     * @param array $payload
+     * @param array $options
      *
      * @return array
      * @throws WebshopappApiException
@@ -941,7 +917,7 @@ class WebshopappApiClient
 
     /**
      * @param string $url
-     * @param array  $params
+     * @param array $params
      *
      * @return array
      * @throws WebshopappApiException
@@ -953,8 +929,8 @@ class WebshopappApiClient
 
     /**
      * @param string $url
-     * @param array  $payload
-     * @param array  $options
+     * @param array $payload
+     * @param array $options
      *
      * @return array
      * @throws WebshopappApiException
@@ -1023,12 +999,9 @@ class WebshopappApiResourceAccountMetafields
      */
     public function get($metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('account/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('account/metafields/' . $metafieldId, $params);
         }
     }
@@ -1110,12 +1083,9 @@ class WebshopappApiResourceAdditionalcosts
      */
     public function get($additionalcostId = null, $params = array())
     {
-        if (!$additionalcostId)
-        {
+        if (!$additionalcostId) {
             return $this->client->read('additionalcosts', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('additionalcosts/' . $additionalcostId, $params);
         }
     }
@@ -1191,12 +1161,9 @@ class WebshopappApiResourceAttributes
      */
     public function get($attributeId = null, $params = array())
     {
-        if (!$attributeId)
-        {
+        if (!$attributeId) {
             return $this->client->read('attributes', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('attributes/' . $attributeId, $params);
         }
     }
@@ -1272,12 +1239,9 @@ class WebshopappApiResourceBlogs
      */
     public function get($blogId = null, $params = array())
     {
-        if (!$blogId)
-        {
+        if (!$blogId) {
             return $this->client->read('blogs', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('blogs/' . $blogId, $params);
         }
     }
@@ -1353,12 +1317,9 @@ class WebshopappApiResourceBlogsArticles
      */
     public function get($articleId = null, $params = array())
     {
-        if (!$articleId)
-        {
+        if (!$articleId) {
             return $this->client->read('blogs/articles', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('blogs/articles/' . $articleId, $params);
         }
     }
@@ -1427,7 +1388,7 @@ class WebshopappApiResourceBlogsArticlesImage
 
                 new SplFileObject($attachment);
 
-                $mimetype             = mime_content_type($attachment);
+                $mimetype = mime_content_type($attachment);
                 $fields['attachment'] = new CURLFile($attachment, $mimetype);
 
                 $options = [
@@ -1502,12 +1463,9 @@ class WebshopappApiResourceBlogsArticlesTags
      */
     public function get($relationId = null, $params = array())
     {
-        if (!$relationId)
-        {
+        if (!$relationId) {
             return $this->client->read('blogs/articles/tags', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('blogs/articles/tags/' . $relationId, $params);
         }
     }
@@ -1569,12 +1527,9 @@ class WebshopappApiResourceBlogsComments
      */
     public function get($commentId = null, $params = array())
     {
-        if (!$commentId)
-        {
+        if (!$commentId) {
             return $this->client->read('blogs/comments', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('blogs/comments/' . $commentId, $params);
         }
     }
@@ -1650,12 +1605,9 @@ class WebshopappApiResourceBlogsTags
      */
     public function get($tagId = null, $params = array())
     {
-        if (!$tagId)
-        {
+        if (!$tagId) {
             return $this->client->read('blogs/tags', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('blogs/tags/' . $tagId, $params);
         }
     }
@@ -1731,12 +1683,9 @@ class WebshopappApiResourceBrands
      */
     public function get($brandId = null, $params = array())
     {
-        if (!$brandId)
-        {
+        if (!$brandId) {
             return $this->client->read('brands', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('brands/' . $brandId, $params);
         }
     }
@@ -1805,7 +1754,7 @@ class WebshopappApiResourceBrandsImage
 
                 new SplFileObject($attachment);
 
-                $mimetype             = mime_content_type($attachment);
+                $mimetype = mime_content_type($attachment);
                 $fields['attachment'] = new CURLFile($attachment, $mimetype);
 
                 $options = [
@@ -1867,12 +1816,9 @@ class WebshopappApiResourceCatalog
      */
     public function get($productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('catalog', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('catalog/' . $productId, $params);
         }
     }
@@ -1923,12 +1869,9 @@ class WebshopappApiResourceCategories
      */
     public function get($categoryId = null, $params = array())
     {
-        if (!$categoryId)
-        {
+        if (!$categoryId) {
             return $this->client->read('categories', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('categories/' . $categoryId, $params);
         }
     }
@@ -1997,7 +1940,7 @@ class WebshopappApiResourceCategoriesImage
 
                 new SplFileObject($attachment);
 
-                $mimetype             = mime_content_type($attachment);
+                $mimetype = mime_content_type($attachment);
                 $fields['attachment'] = new CURLFile($attachment, $mimetype);
 
                 $options = [
@@ -2072,12 +2015,9 @@ class WebshopappApiResourceCategoriesProducts
      */
     public function get($relationId = null, $params = array())
     {
-        if (!$relationId)
-        {
+        if (!$relationId) {
             return $this->client->read('categories/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('categories/products/' . $relationId, $params);
         }
     }
@@ -2163,12 +2103,9 @@ class WebshopappApiResourceCheckouts
      */
     public function get($checkoutId = null, $params = array())
     {
-        if (!$checkoutId)
-        {
+        if (!$checkoutId) {
             return $this->client->read('checkouts', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('checkouts/' . $checkoutId, $params);
         }
     }
@@ -2291,12 +2228,9 @@ class WebshopappApiResourceCheckoutsProducts
      */
     public function get($checkoutId, $productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('checkouts/' . $checkoutId . '/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('checkouts/' . $checkoutId . '/products/' . $productId, $params);
         }
     }
@@ -2408,12 +2342,9 @@ class WebshopappApiResourceContacts
      */
     public function get($contactId = null, $params = array())
     {
-        if (!$contactId)
-        {
+        if (!$contactId) {
             return $this->client->read('contacts', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('contacts/' . $contactId, $params);
         }
     }
@@ -2451,12 +2382,9 @@ class WebshopappApiResourceCountries
      */
     public function get($countryId = null, $params = array())
     {
-        if (!$countryId)
-        {
+        if (!$countryId) {
             return $this->client->read('countries', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('countries/' . $countryId, $params);
         }
     }
@@ -2507,12 +2435,9 @@ class WebshopappApiResourceCustomers
      */
     public function get($customerId = null, $params = array())
     {
-        if (!$customerId)
-        {
+        if (!$customerId) {
             return $this->client->read('customers', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('customers/' . $customerId, $params);
         }
     }
@@ -2617,12 +2542,9 @@ class WebshopappApiResourceCustomersMetafields
      */
     public function get($customerId, $metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('customers/' . $customerId . '/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('customers/' . $customerId . '/metafields/' . $metafieldId, $params);
         }
     }
@@ -2752,12 +2674,9 @@ class WebshopappApiResourceDeliverydates
      */
     public function get($deliverydateId = null, $params = array())
     {
-        if (!$deliverydateId)
-        {
+        if (!$deliverydateId) {
             return $this->client->read('deliverydates', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('deliverydates/' . $deliverydateId, $params);
         }
     }
@@ -2833,12 +2752,9 @@ class WebshopappApiResourceDiscountrules
      */
     public function get($discountruleId = null, $params = array())
     {
-        if (!$discountruleId)
-        {
+        if (!$discountruleId) {
             return $this->client->read('discountrules', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('discountrules/' . $discountruleId, $params);
         }
     }
@@ -2914,12 +2830,9 @@ class WebshopappApiResourceDiscounts
      */
     public function get($discountId = null, $params = array())
     {
-        if (!$discountId)
-        {
+        if (!$discountId) {
             return $this->client->read('discounts', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('discounts/' . $discountId, $params);
         }
     }
@@ -2982,12 +2895,9 @@ class WebshopappApiResourceEvents
      */
     public function get($eventId = null, $params = array())
     {
-        if (!$eventId)
-        {
+        if (!$eventId) {
             return $this->client->read('events', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('events/' . $eventId, $params);
         }
     }
@@ -3049,12 +2959,9 @@ class WebshopappApiResourceExternal_services
      */
     public function get($externalserviceId = null, $params = array())
     {
-        if (!$externalserviceId)
-        {
+        if (!$externalserviceId) {
             return $this->client->read('external_services', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('external_services/' . $externalserviceId, $params);
         }
     }
@@ -3108,7 +3015,7 @@ class WebshopappApiResourceFiles
 
                 new SplFileObject($attachment);
 
-                $mimetype             = mime_content_type($attachment);
+                $mimetype = mime_content_type($attachment);
                 $fields['attachment'] = new CURLFile($attachment, $mimetype);
 
                 $options = [
@@ -3135,12 +3042,9 @@ class WebshopappApiResourceFiles
      */
     public function get($fileId = null, $params = array())
     {
-        if (!$fileId)
-        {
+        if (!$fileId) {
             return $this->client->read('files', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('files/' . $fileId, $params);
         }
     }
@@ -3216,12 +3120,9 @@ class WebshopappApiResourceFilters
      */
     public function get($filterId = null, $params = array())
     {
-        if (!$filterId)
-        {
+        if (!$filterId) {
             return $this->client->read('filters', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('filters/' . $filterId, $params);
         }
     }
@@ -3285,12 +3186,9 @@ class WebshopappApiResourceFiltersValues
      */
     public function get($filterId, $filterValueId = null, $params = array())
     {
-        if (!$filterValueId)
-        {
+        if (!$filterValueId) {
             return $this->client->read('filters/' . $filterId . '/values', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('filters/' . $filterId . '/values/' . $filterValueId, $params);
         }
     }
@@ -3383,12 +3281,9 @@ class WebshopappApiResourceGroups
      */
     public function get($groupId = null, $params = array())
     {
-        if (!$groupId)
-        {
+        if (!$groupId) {
             return $this->client->read('groups', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('groups/' . $groupId, $params);
         }
     }
@@ -3464,12 +3359,9 @@ class WebshopappApiResourceGroupsCustomers
      */
     public function get($relationId = null, $params = array())
     {
-        if (!$relationId)
-        {
+        if (!$relationId) {
             return $this->client->read('groups/customers', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('groups/customers/' . $relationId, $params);
         }
     }
@@ -3518,12 +3410,9 @@ class WebshopappApiResourceInvoices
      */
     public function get($invoiceId = null, $params = array())
     {
-        if (!$invoiceId)
-        {
+        if (!$invoiceId) {
             return $this->client->read('invoices', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('invoices/' . $invoiceId, $params);
         }
     }
@@ -3576,12 +3465,9 @@ class WebshopappApiResourceInvoicesItems
      */
     public function get($invoiceId, $itemId = null, $params = array())
     {
-        if (!$itemId)
-        {
+        if (!$itemId) {
             return $this->client->read('invoices/' . $invoiceId . '/items', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('invoices/' . $invoiceId . '/items/' . $itemId, $params);
         }
     }
@@ -3635,12 +3521,9 @@ class WebshopappApiResourceInvoicesMetafields
      */
     public function get($invoiceId, $metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('invoices/' . $invoiceId . '/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('invoices/' . $invoiceId . '/metafields/' . $metafieldId, $params);
         }
     }
@@ -3706,12 +3589,9 @@ class WebshopappApiResourceLanguages
      */
     public function get($languageId = null, $params = array())
     {
-        if (!$languageId)
-        {
+        if (!$languageId) {
             return $this->client->read('languages', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('languages/' . $languageId, $params);
         }
     }
@@ -3749,12 +3629,9 @@ class WebshopappApiResourceLocations
      */
     public function get($locationId = null, $params = array())
     {
-        if (!$locationId)
-        {
+        if (!$locationId) {
             return $this->client->read('locations', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('locations/' . $locationId, $params);
         }
     }
@@ -3843,12 +3720,9 @@ class WebshopappApiResourceMetafields
      */
     public function get($metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('metafields/' . $metafieldId, $params);
         }
     }
@@ -3911,12 +3785,9 @@ class WebshopappApiResourceOrders
      */
     public function get($orderId = null, $params = array())
     {
-        if (!$orderId)
-        {
+        if (!$orderId) {
             return $this->client->read('orders', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('orders/' . $orderId, $params);
         }
     }
@@ -4010,12 +3881,9 @@ class WebshopappApiResourceOrdersMetafields
      */
     public function get($orderId, $metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('orders/' . $orderId . '/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('orders/' . $orderId . '/metafields/' . $metafieldId, $params);
         }
     }
@@ -4082,12 +3950,9 @@ class WebshopappApiResourceOrdersProducts
      */
     public function get($orderId, $productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('orders/' . $orderId . '/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('orders/' . $orderId . '/products/' . $productId, $params);
         }
     }
@@ -4139,12 +4004,9 @@ class WebshopappApiResourceOrdersCustomstatuses
      */
     public function get($customstatusId = null, $params = array())
     {
-        if (!$customstatusId)
-        {
+        if (!$customstatusId) {
             return $this->client->read('orders/customstatuses', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('orders/customstatuses/' . $customstatusId, $params);
         }
     }
@@ -4207,12 +4069,9 @@ class WebshopappApiResourceOrdersEvents
      */
     public function get($eventId = null, $params = array())
     {
-        if (!$eventId)
-        {
+        if (!$eventId) {
             return $this->client->read('orders/events', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('orders/events/' . $eventId, $params);
         }
     }
@@ -4250,12 +4109,9 @@ class WebshopappApiResourcePaymentmethods
      */
     public function get($paymentmethodId = null, $params = array())
     {
-        if (!$paymentmethodId)
-        {
+        if (!$paymentmethodId) {
             return $this->client->read('paymentmethods', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('paymentmethods/' . $paymentmethodId, $params);
         }
     }
@@ -4306,12 +4162,9 @@ class WebshopappApiResourceProducts
      */
     public function get($productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('products/' . $productId, $params);
         }
     }
@@ -4375,14 +4228,11 @@ class WebshopappApiResourceProductsAttributes
      */
     public function update($productId, $attributeId, $fields)
     {
-        if (!$attributeId)
-        {
+        if (!$attributeId) {
             $fields = array('productAttributes' => $fields);
 
             return $this->client->update('products/' . $productId . '/attributes', $fields);
-        }
-        else
-        {
+        } else {
             $fields = array('productAttribute' => $fields);
 
             return $this->client->update('products/' . $productId . '/attributes/' . $attributeId, $fields);
@@ -4399,12 +4249,9 @@ class WebshopappApiResourceProductsAttributes
      */
     public function get($productId, $attributeId = null, $params = array())
     {
-        if (!$attributeId)
-        {
+        if (!$attributeId) {
             return $this->client->read('products/' . $productId . '/attributes', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('products/' . $productId . '/attributes/' . $attributeId, $params);
         }
     }
@@ -4523,7 +4370,7 @@ class WebshopappApiResourceProductsImages
 
                 new SplFileObject($attachment);
 
-                $mimetype             = mime_content_type($attachment);
+                $mimetype = mime_content_type($attachment);
                 $fields['attachment'] = new CURLFile($attachment, $mimetype);
 
                 $options = [
@@ -4551,12 +4398,9 @@ class WebshopappApiResourceProductsImages
      */
     public function get($productId, $imageId = null, $params = array())
     {
-        if (!$imageId)
-        {
+        if (!$imageId) {
             return $this->client->read('products/' . $productId . '/images', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('products/' . $productId . '/images/' . $imageId, $params);
         }
     }
@@ -4637,12 +4481,9 @@ class WebshopappApiResourceProductsMetafields
      */
     public function get($productId, $metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('products/' . $productId . '/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('products/' . $productId . '/metafields/' . $metafieldId, $params);
         }
     }
@@ -4723,12 +4564,9 @@ class WebshopappApiResourceProductsRelations
      */
     public function get($productId, $relationId = null, $params = array())
     {
-        if (!$relationId)
-        {
+        if (!$relationId) {
             return $this->client->read('products/' . $productId . '/relations', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('products/' . $productId . '/relations/' . $relationId, $params);
         }
     }
@@ -4807,12 +4645,9 @@ class WebshopappApiResourceQuotes
      */
     public function get($quoteId = null, $params = array())
     {
-        if (!$quoteId)
-        {
+        if (!$quoteId) {
             return $this->client->read('quotes', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('quotes/' . $quoteId, $params);
         }
     }
@@ -4942,12 +4777,9 @@ class WebshopappApiResourceQuotesProducts
      */
     public function get($quoteId, $productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('quotes/' . $quoteId . '/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('quotes/' . $quoteId . '/products/' . $productId, $params);
         }
     }
@@ -5062,12 +4894,9 @@ class WebshopappApiResourceRedirects
      */
     public function get($redirectId = null, $params = array())
     {
-        if (!$redirectId)
-        {
+        if (!$redirectId) {
             return $this->client->read('redirects', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('redirects/' . $redirectId, $params);
         }
     }
@@ -5130,12 +4959,9 @@ class WebshopappApiResourceReturns
      */
     public function get($returnId = null, $params = array())
     {
-        if (!$returnId)
-        {
+        if (!$returnId) {
             return $this->client->read('returns', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('returns/' . $returnId, $params);
         }
     }
@@ -5211,12 +5037,9 @@ class WebshopappApiResourceReviews
      */
     public function get($reviewId = null, $params = array())
     {
-        if (!$reviewId)
-        {
+        if (!$reviewId) {
             return $this->client->read('reviews', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('reviews/' . $reviewId, $params);
         }
     }
@@ -5292,12 +5115,9 @@ class WebshopappApiResourceSets
      */
     public function get($setId = null, $params = array())
     {
-        if (!$setId)
-        {
+        if (!$setId) {
             return $this->client->read('sets', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('sets/' . $setId, $params);
         }
     }
@@ -5360,12 +5180,9 @@ class WebshopappApiResourceShipments
      */
     public function get($shipmentId = null, $params = array())
     {
-        if (!$shipmentId)
-        {
+        if (!$shipmentId) {
             return $this->client->read('shipments', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shipments/' . $shipmentId, $params);
         }
     }
@@ -5432,12 +5249,9 @@ class WebshopappApiResourceShipmentsMetafields
      */
     public function get($shipmentId, $metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('shipments/' . $shipmentId . '/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shipments/' . $shipmentId . '/metafields/' . $metafieldId, $params);
         }
     }
@@ -5504,12 +5318,9 @@ class WebshopappApiResourceShipmentsProducts
      */
     public function get($shipmentId, $productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('shipments/' . $shipmentId . '/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shipments/' . $shipmentId . '/products/' . $productId, $params);
         }
     }
@@ -5548,12 +5359,9 @@ class WebshopappApiResourceShippingmethods
      */
     public function get($shippingmethodId = null, $params = array())
     {
-        if (!$shippingmethodId)
-        {
+        if (!$shippingmethodId) {
             return $this->client->read('shippingmethods', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shippingmethods/' . $shippingmethodId, $params);
         }
     }
@@ -5592,12 +5400,9 @@ class WebshopappApiResourceShippingmethodsCountries
      */
     public function get($shippingmethodId, $countryId = null, $params = array())
     {
-        if (!$countryId)
-        {
+        if (!$countryId) {
             return $this->client->read('shippingmethods/' . $shippingmethodId . '/countries', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shippingmethods/' . $shippingmethodId . '/countries/' . $countryId, $params);
         }
     }
@@ -5637,12 +5442,9 @@ class WebshopappApiResourceShippingmethodsValues
      */
     public function get($shippingmethodId, $valueId = null, $params = array())
     {
-        if (!$valueId)
-        {
+        if (!$valueId) {
             return $this->client->read('shippingmethods/' . $shippingmethodId . '/values', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shippingmethods/' . $shippingmethodId . '/values/' . $valueId, $params);
         }
     }
@@ -5808,12 +5610,9 @@ class WebshopappApiResourceShopMetafields
      */
     public function get($metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('shop/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shop/metafields/' . $metafieldId, $params);
         }
     }
@@ -5889,12 +5688,9 @@ class WebshopappApiResourceShopScripts
      */
     public function get($scriptId = null, $params = array())
     {
-        if (!$scriptId)
-        {
+        if (!$scriptId) {
             return $this->client->read('shop/scripts', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shop/scripts/' . $scriptId, $params);
         }
     }
@@ -5992,12 +5788,9 @@ class WebshopappApiResourceShopTracking
      */
     public function get($trackingId = null, $params = array())
     {
-        if (!$trackingId)
-        {
+        if (!$trackingId) {
             return $this->client->read('shop/tracking', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('shop/tracking/' . $trackingId, $params);
         }
     }
@@ -6095,12 +5888,9 @@ class WebshopappApiResourceSubscriptions
      */
     public function get($subscriptionId = null, $params = array())
     {
-        if (!$subscriptionId)
-        {
+        if (!$subscriptionId) {
             return $this->client->read('subscriptions', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('subscriptions/' . $subscriptionId, $params);
         }
     }
@@ -6176,12 +5966,9 @@ class WebshopappApiResourceSuppliers
      */
     public function get($supplierId = null, $params = array())
     {
-        if (!$supplierId)
-        {
+        if (!$supplierId) {
             return $this->client->read('suppliers', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('suppliers/' . $supplierId, $params);
         }
     }
@@ -6257,12 +6044,9 @@ class WebshopappApiResourceTags
      */
     public function get($tagId = null, $params = array())
     {
-        if (!$tagId)
-        {
+        if (!$tagId) {
             return $this->client->read('tags', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('tags/' . $tagId, $params);
         }
     }
@@ -6338,12 +6122,9 @@ class WebshopappApiResourceTagsProducts
      */
     public function get($relationId = null, $params = array())
     {
-        if (!$relationId)
-        {
+        if (!$relationId) {
             return $this->client->read('tags/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('tags/products/' . $relationId, $params);
         }
     }
@@ -6405,12 +6186,9 @@ class WebshopappApiResourceTaxes
      */
     public function get($taxId = null, $params = array())
     {
-        if (!$taxId)
-        {
+        if (!$taxId) {
             return $this->client->read('taxes', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('taxes/' . $taxId, $params);
         }
     }
@@ -6488,12 +6266,9 @@ class WebshopappApiResourceTaxesOverrides
      */
     public function get($taxId, $taxOverrideId = null, $params = array())
     {
-        if (!$taxOverrideId)
-        {
+        if (!$taxOverrideId) {
             return $this->client->read('taxes/' . $taxId . '/overrides', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('taxes/' . $taxId . '/overrides/' . $taxOverrideId, $params);
         }
     }
@@ -6572,12 +6347,9 @@ class WebshopappApiResourceTextpages
      */
     public function get($textpageId = null, $params = array())
     {
-        if (!$textpageId)
-        {
+        if (!$textpageId) {
             return $this->client->read('textpages', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('textpages/' . $textpageId, $params);
         }
     }
@@ -6653,12 +6425,9 @@ class WebshopappApiResourceThemeCategories
      */
     public function get($categoryId = null, $params = array())
     {
-        if (!$categoryId)
-        {
+        if (!$categoryId) {
             return $this->client->read('theme/categories', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('theme/categories/' . $categoryId, $params);
         }
     }
@@ -6734,12 +6503,9 @@ class WebshopappApiResourceThemeProducts
      */
     public function get($productId = null, $params = array())
     {
-        if (!$productId)
-        {
+        if (!$productId) {
             return $this->client->read('theme/products', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('theme/products/' . $productId, $params);
         }
     }
@@ -6815,12 +6581,9 @@ class WebshopappApiResourceTickets
      */
     public function get($ticketId = null, $params = array())
     {
-        if (!$ticketId)
-        {
+        if (!$ticketId) {
             return $this->client->read('tickets', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('tickets/' . $ticketId, $params);
         }
     }
@@ -6898,12 +6661,9 @@ class WebshopappApiResourceTicketsMessages
      */
     public function get($ticketId, $messageId = null, $params = array())
     {
-        if (!$messageId)
-        {
+        if (!$messageId) {
             return $this->client->read('tickets/' . $ticketId . '/messages', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('tickets/' . $ticketId . '/messages/' . $messageId, $params);
         }
     }
@@ -7004,12 +6764,9 @@ class WebshopappApiResourceTypes
      */
     public function get($typeId = null, $params = array())
     {
-        if (!$typeId)
-        {
+        if (!$typeId) {
             return $this->client->read('types', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('types/' . $typeId, $params);
         }
     }
@@ -7085,12 +6842,9 @@ class WebshopappApiResourceTypesAttributes
      */
     public function get($relationId = null, $params = array())
     {
-        if (!$relationId)
-        {
+        if (!$relationId) {
             return $this->client->read('types/attributes', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('types/attributes/' . $relationId, $params);
         }
     }
@@ -7152,12 +6906,9 @@ class WebshopappApiResourceVariants
      */
     public function get($variantId = null, $params = array())
     {
-        if (!$variantId)
-        {
+        if (!$variantId) {
             return $this->client->read('variants', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('variants/' . $variantId, $params);
         }
     }
@@ -7284,12 +7035,9 @@ class WebshopappApiResourceVariantsMetafields
      */
     public function get($variantId, $metafieldId = null, $params = array())
     {
-        if (!$metafieldId)
-        {
+        if (!$metafieldId) {
             return $this->client->read('variants/' . $variantId . '/metafields', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('variants/' . $variantId . '/metafields/' . $metafieldId, $params);
         }
     }
@@ -7381,12 +7129,9 @@ class WebshopappApiResourceVariantsMovements
      */
     public function get($movementId = null, $params = array())
     {
-        if (!$movementId)
-        {
+        if (!$movementId) {
             return $this->client->read('variants/movements', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('variants/movements/' . $movementId, $params);
         }
     }
@@ -7437,12 +7182,9 @@ class WebshopappApiResourceWebhooks
      */
     public function get($webhookId = null, $params = array())
     {
-        if (!$webhookId)
-        {
+        if (!$webhookId) {
             return $this->client->read('webhooks', $params);
-        }
-        else
-        {
+        } else {
             return $this->client->read('webhooks/' . $webhookId, $params);
         }
     }
