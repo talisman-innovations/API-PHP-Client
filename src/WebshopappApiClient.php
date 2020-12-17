@@ -850,7 +850,7 @@ class WebshopappApiClient
                     $this->logger->log(strtoupper($method), $this->getUrl($url), null, [], json_encode($payload), $responseCode, $headers, $responseBody);
                     break;
                 default:
-                    $this->logger->log(strtoupper($method), $this->getUrl($url), $payload, [], null, $responseCode, $headers, $responseBody);
+                    $this->logger->log(strtoupper($method), $this->getUrl($url, $payload), null, [], null, $responseCode, $headers, $responseBody);
                     break;
             }
         }
