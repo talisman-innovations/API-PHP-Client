@@ -1,6 +1,5 @@
 <?php
 
-use ConnectorSupport\Curl\Logger;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -499,7 +498,7 @@ class WebshopappApiClient
      */
     public function setLogger(LoggerInterface $logger)
     {
-        $this->logger = new ConnectorSupport\Curl\Logger($logger);
+        $this->logger = new Logger($logger);
     }
 
     /**
@@ -7224,4 +7223,77 @@ class WebshopappApiResourceWebhooks
     {
         return $this->client->delete('webhooks/' . $webhookId);
     }
+}
+
+class Logger
+{
+    /** @var LoggerInterface $logger */
+    private $logger;
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function log($method, $url, $query, $reqHeaders, $reqBody, $code, $respHeaders, $respBody)
+    {
+        if ($query) {
+            $url = $url . '?' . $query;
+        }
+
+        $message = $method . ' ' . $url;
+
+        $context['url'] = $url;
+        $context['method'] = $method;
+        $context['request_headers'] = $reqHeaders;
+        $context['request_body'] = $this->formatBody($reqHeaders, $reqBody);
+
+        $context['status'] = $code;
+        $context['response_headers'] = $respHeaders;
+        $context['response_body'] = $this->formatBody($respHeaders, $respBody);
+
+        $this->logger->info($message, $context);
+    }
+
+    /**
+     * @param array $header
+     * @param string|null $body
+     * @return string
+     */
+    protected function formatBody($header, $body)
+    {
+        if (empty($body)) {
+            return '';
+        }
+
+        if (in_array('Content-Type', $header)) {
+            $contentTypeHeader = $header['Content-Type'];
+            $contentTypeParts = explode(';', $contentTypeHeader);
+            $contentType = strtolower($contentTypeParts[0]);
+        } else {
+            $contentType = null;
+        }
+
+        switch ($contentType) {
+            case 'application/json':
+                $json = json_decode($body, TRUE);
+                $formatted = $json ? $json : $body;
+                break;
+            case 'text/xml':
+            case 'application/xml':
+            case 'application/soap+xml':
+                $xml = simplexml_load_string((string)$body);
+                $formatted = $xml ? $xml->asXML() : $body;;
+                break;
+            default:
+                $formatted = (string) $body;
+                break;
+        }
+
+        return $formatted;
+    }
+
 }
